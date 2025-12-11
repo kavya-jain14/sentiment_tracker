@@ -16,7 +16,7 @@ const generateMockData = (fngData) => {
   const mockData = [];
   const basePrice = 45000;
 
-  // Alternative.me returns data newest first, we reverse it for chronological charting
+
   const reversedFng = [...fngData].reverse();
 
   reversedFng.forEach((item, index) => {
