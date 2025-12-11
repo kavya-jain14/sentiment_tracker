@@ -22,7 +22,7 @@ const generateMockData = (fngData) => {
   reversedFng.forEach((item, index) => {
     const score = parseInt(item.value);
 
-    // Convert Unix timestamp (seconds) to a standard date format
+   
     const date = new Date(parseInt(item.timestamp) * 1000).toISOString().substring(0, 10);
 
     // SIMPLE MOCK BTC PRICE: Correlate price loosely to sentiment for visualization
