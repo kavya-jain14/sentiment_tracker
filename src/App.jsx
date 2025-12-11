@@ -86,7 +86,7 @@ const GaugeDisplay = ({ score, classification }) => {
 };
 
 
-// --- CHART COMPONENT (Simplified SVG Implementation without external charting library) ---
+
 const HistoricalChart = ({ data }) => {
 
   const WIDTH = 600;
@@ -103,7 +103,7 @@ const HistoricalChart = ({ data }) => {
     );
   }
 
-  // 1. Data Extents (Min/Max for scaling)
+
   const scores = data.map(d => d.fearGreedScore);
   const prices = data.map(d => d.btcPrice);
 
