@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 const ALTERNATIVE_ME_API_URL = 'https://api.alternative.me/fng/?limit=90';
 
-// Classification logic
+
 const getClassification = (score) => {
   if (score >= 75) return { name: 'Extreme Greed', color: 'text-green-600', hex: '#16a34a' };
   if (score >= 55) return { name: 'Greed', color: 'text-green-400', hex: '#4ade80' };
