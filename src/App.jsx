@@ -11,7 +11,7 @@ const getClassification = (score) => {
   return { name: 'Extreme Fear', color: 'text-red-600', hex: '#dc2626' };
 };
 
-// --- MOCK DATA GENERATOR (To make the app runnable in Canvas) ---
+
 const generateMockData = (fngData) => {
   const mockData = [];
   const basePrice = 45000;
