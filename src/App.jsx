@@ -112,16 +112,16 @@ const HistoricalChart = ({ data }) => {
   const minPrice = Math.min(...prices) * 0.95; // 5% buffer
   const maxPrice = Math.max(...prices) * 1.05; // 5% buffer
 
-  // 2. Scaling Functions (Map data values to pixel coordinates)
+ 
   const getX = (index) => PADDING + (index / (data.length - 1)) * CHART_WIDTH;
   const getYScore = (score) => PADDING + CHART_HEIGHT - ((score - minScore) / (maxScore - minScore)) * CHART_HEIGHT;
   const getYPrice = (price) => PADDING + CHART_HEIGHT - ((price - minPrice) / (maxPrice - minPrice)) * CHART_HEIGHT;
 
-  // 3. Generate Path Strings (SVG line coordinates)
+
   const scorePath = data.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getYScore(d.fearGreedScore)}`).join(' ');
   const pricePath = data.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getYPrice(d.btcPrice)}`).join(' ');
 
-  // 4. Sentiment Zones (Simplified Reference Areas)
+  
   const scoreToHeight = (score) => (score / maxScore) * CHART_HEIGHT;
 
   const sentimentZones = [
@@ -192,29 +192,29 @@ const HistoricalChart = ({ data }) => {
 };
 
 
-// --- Main Application Component ---
+
 const App = () => {
   const [historicalData, setHistoricalData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch data directly from Alternative.me and generate mock BTC price
+ 
   const fetchSentimentData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      // Attempt to fetch F&G data directly
+     
       const response = await fetch(ALTERNATIVE_ME_API_URL);
 
       if (!response.ok) {
-        // If the fetch fails, we throw an error to use the fallback logic.
+       
         throw new Error(`External API fetch failed with status: ${response.status}`);
       }
 
       const result = await response.json();
 
       if (result.data) {
-        // Use the real F&G data and generate mock price data
+       
         const processedData = generateMockData(result.data);
         setHistoricalData(processedData);
       } else {
