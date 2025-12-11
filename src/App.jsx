@@ -254,7 +254,7 @@ const App = () => {
     ? getClassification(latestData.fearGreedScore)
     : { name: 'Loading', color: 'text-gray-500' };
 
-  // --- RENDERING ---
+  
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-2xl">Loading Sentiment Data...</div>;
