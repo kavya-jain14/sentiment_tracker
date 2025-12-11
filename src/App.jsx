@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-// REMOVED: import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceArea } from 'recharts';
-// Reason: 'recharts' is an external dependency that cannot be resolved in this isolated environment.
-
 // --- CONFIGURATION & UTILITIES ---
 const ALTERNATIVE_ME_API_URL = 'https://api.alternative.me/fng/?limit=90';
 
