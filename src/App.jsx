@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-// --- CONFIGURATION & UTILITIES ---
+
 const ALTERNATIVE_ME_API_URL = 'https://api.alternative.me/fng/?limit=90';
 
 // Classification logic
