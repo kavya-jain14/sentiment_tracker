@@ -40,9 +40,9 @@ const generateMockData = (fngData) => {
 };
 
 
-// --- GAUGE COMPONENT ---
+
 const GaugeDisplay = ({ score, classification }) => {
-  // Calculate the rotation for the needle (0 to 180 degrees)
+
   const rotationDegrees = -90 + (score / 100) * 180;
 
   return (
@@ -88,7 +88,7 @@ const GaugeDisplay = ({ score, classification }) => {
 
 // --- CHART COMPONENT (Simplified SVG Implementation without external charting library) ---
 const HistoricalChart = ({ data }) => {
-  // Chart dimensions
+
   const WIDTH = 600;
   const HEIGHT = 300;
   const PADDING = 40;
