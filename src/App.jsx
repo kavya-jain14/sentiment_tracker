@@ -108,9 +108,9 @@ const HistoricalChart = ({ data }) => {
   const prices = data.map(d => d.btcPrice);
 
   const minScore = 0;
-  const maxScore = 100; // Fixed for F&G Index
-  const minPrice = Math.min(...prices) * 0.95; // 5% buffer
-  const maxPrice = Math.max(...prices) * 1.05; // 5% buffer
+  const maxScore = 100; 
+  const minPrice = Math.min(...prices) * 0.95; 
+  const maxPrice = Math.max(...prices) * 1.05; 
 
  
   const getX = (index) => PADDING + (index / (data.length - 1)) * CHART_WIDTH;
@@ -221,10 +221,10 @@ const App = () => {
         throw new Error("Invalid data structure from Alternative.me.");
       }
     } catch (e) {
-      // This is the error path if external API access is blocked (CORS/No Proxy)
+      
       console.warn("Direct API fetch failed (Using simulated data).", e);
 
-      // Fallback: Generate mock data if external fetch fails
+      
       const fallbackFngData = [
         { value: '45', value_classification: 'Neutral', timestamp: String(Math.floor(Date.now() / 1000) - 86400 * 5) },
         { value: '20', value_classification: 'Extreme Fear', timestamp: String(Math.floor(Date.now() / 1000) - 86400 * 4) },
