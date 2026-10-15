@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+
+import { generateMockData } from './data.js';
 
 const ALTERNATIVE_ME_API_URL = 'https://api.alternative.me/fng/?limit=90';
 
@@ -10,35 +12,6 @@ const getClassification = (score) => {
   if (score >= 25) return { name: 'Fear', color: 'text-orange-500', hex: '#f97316' };
   return { name: 'Extreme Fear', color: 'text-red-600', hex: '#dc2626' };
 };
-
-
-const generateMockData = (fngData) => {
-  const mockData = [];
-  const basePrice = 45000;
-
-
-  const reversedFng = [...fngData].reverse();
-
-  reversedFng.forEach((item, index) => {
-    const score = parseInt(item.value);
-
-   
-    const date = new Date(parseInt(item.timestamp) * 1000).toISOString().substring(0, 10);
-
-    // SIMPLE MOCK BTC PRICE: Correlate price loosely to sentiment for visualization
-    const priceFactor = (score / 100) * 0.5 + 0.75;
-    const btcPrice = Math.round(basePrice * priceFactor + Math.sin(index / 5) * 2000);
-
-    mockData.push({
-      date: date,
-      fearGreedScore: score,
-      classification: item.value_classification,
-      btcPrice: btcPrice,
-    });
-  });
-  return mockData;
-};
-
 
 
 const GaugeDisplay = ({ score, classification }) => {
@@ -104,7 +77,6 @@ const HistoricalChart = ({ data }) => {
   }
 
 
-  const scores = data.map(d => d.fearGreedScore);
   const prices = data.map(d => d.btcPrice);
 
   const minScore = 0;
@@ -113,7 +85,7 @@ const HistoricalChart = ({ data }) => {
   const maxPrice = Math.max(...prices) * 1.05; 
 
  
-  const getX = (index) => PADDING + (index / (data.length - 1)) * CHART_WIDTH;
+  const getX = (index) => PADDING + (index / Math.max(1, data.length - 1)) * CHART_WIDTH;
   const getYScore = (score) => PADDING + CHART_HEIGHT - ((score - minScore) / (maxScore - minScore)) * CHART_HEIGHT;
   const getYPrice = (price) => PADDING + CHART_HEIGHT - ((price - minPrice) / (maxPrice - minPrice)) * CHART_HEIGHT;
 
@@ -139,12 +111,12 @@ const HistoricalChart = ({ data }) => {
         <rect x={PADDING} y={PADDING} width={CHART_WIDTH} height={CHART_HEIGHT} fill="#1f2937" />
 
         {/* Sentiment Zone Backgrounds */}
-        {sentimentZones.map((zone, index) => {
+        {sentimentZones.map((zone) => {
           const zoneHeight = scoreToHeight(zone.end - zone.start);
           const zoneY = getYScore(zone.end);
           return (
             <rect
-              key={index}
+              key={zone.start}
               x={PADDING}
               y={zoneY}
               width={CHART_WIDTH}
@@ -306,7 +278,7 @@ const App = () => {
 
         {/* 3. Data Source Information */}
         <footer className="text-center text-sm text-gray-500 pt-4 border-t border-gray-700">
-          Data sourced from Alternative.me (Fear & Greed Index) and CoinGecko (BTC Price - Simulated for environment).
+          Sentiment: Alternative.me. BTC prices are illustrative simulations, not market quotes.
         </footer>
       </div>
     </div>
