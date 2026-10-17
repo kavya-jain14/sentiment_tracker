@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import { generateMockData } from './data.js';
-
-const ALTERNATIVE_ME_API_URL = 'https://api.alternative.me/fng/?limit=90';
+import { fetchSentimentReadings, generateMockData } from './data.js';
 
 
 const getClassification = (score) => {
@@ -176,22 +174,7 @@ const App = () => {
     setError(null);
     try {
      
-      const response = await fetch(ALTERNATIVE_ME_API_URL);
-
-      if (!response.ok) {
-       
-        throw new Error(`External API fetch failed with status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (result.data) {
-       
-        const processedData = generateMockData(result.data);
-        setHistoricalData(processedData);
-      } else {
-        throw new Error("Invalid data structure from Alternative.me.");
-      }
+      setHistoricalData(await fetchSentimentReadings());
     } catch (e) {
       
       console.warn("Direct API fetch failed (Using simulated data).", e);

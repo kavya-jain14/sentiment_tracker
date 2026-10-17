@@ -1,3 +1,16 @@
+export async function fetchSentimentReadings({
+  url = 'https://api.alternative.me/fng/?limit=90',
+  timeoutMs = 10_000,
+} = {}) {
+  // Keep the deadline active through body consumption, not only response headers.
+  const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+  if (!response.ok) {
+    throw new Error(`External API fetch failed with status: ${response.status}`);
+  }
+  const result = await response.json();
+  return generateMockData(result?.data);
+}
+
 export function generateMockData(items) {
   if (!Array.isArray(items)) throw new Error('Invalid sentiment data.');
   const days = new Map();
