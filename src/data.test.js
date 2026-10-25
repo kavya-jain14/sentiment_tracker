@@ -16,6 +16,17 @@ test('malformed, empty and duplicate upstream readings are handled', () => {
   assert.throws(() => generateMockData({}), /Invalid/);
 });
 
+test('non-numeric upstream fields cannot become fabricated readings through coercion', () => {
+  for (const value of [false, true, [], [25], {}, ' ', '\t\n']) {
+    assert.throws(() => generateMockData([{value, timestamp: old.timestamp}]), /No valid/);
+    assert.throws(() => generateMockData([{value: old.value, timestamp: value}]), /No valid/);
+  }
+  assert.deepEqual(generateMockData([
+    {value: 0, timestamp: Number(old.timestamp)},
+    {value: '100', timestamp: recent.timestamp},
+  ]).map(row => row.fearGreedScore), [0, 100]);
+});
+
 async function withUpstream(handler, check) {
   const server = createServer(handler);
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
